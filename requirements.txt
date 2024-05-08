@@ -1,5 +1,6 @@
 #List of packages
-Flask==2.2.2  # Specify Flask version (example)
+Flask==2.2.5  # Specify Flask version
+certifi>=2023.7.22
 Werkzeug
 Jinja2
 requests
