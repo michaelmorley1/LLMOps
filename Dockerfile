@@ -1,12 +1,17 @@
-# 1. Base Image
+# Specify Python version (replace with your required version)
+FROM python:3.9
 
+# Set the working directory to /app
+WORKDIR /app
 
-# 2. Install Dependencies
+# Copy application files (exclude .env)
+COPY . . -f [.env] 
 
-# 3. Set Working Directory
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-# 4. Copy Application Code
+# Expose port 8081
+EXPOSE 8081
 
-# 5. Expose Port 
-
-# 6. Specify Command to Run
+# Run projectcode.py when the container launches
+CMD ["python", “projectcode.py"]
