@@ -10,8 +10,8 @@ COPY . .
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose port 8081
-EXPOSE 8081
+# Expose port 5000
+EXPOSE 5000
 
 # Run projectcode.py when the container launches
 CMD ["python", “projectcode.py"]
