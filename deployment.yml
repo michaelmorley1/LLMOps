@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llmops-deployment
+  labels:
+    app: llmops
+spec:
+  replicas: 1 # Set to 1 for a simple setup
+  selector:
+    matchLabels:
+      app: llmops
+  template:
+    metadata:
+      labels:
+        app: llmops
+    spec:
+      containers:
+      - name: llmops-container
+        image: morlom/llmops:latest # Ensure this matches the image you push from Dockerfile
+        ports:
+        - containerPort: 5000 # Matches the EXPOSE instruction in Dockerfile
+
