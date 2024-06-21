@@ -5,7 +5,7 @@ metadata:
   labels:
     app: llmops
 spec:
-  replicas: 1 # Set to 1 for a simple setup
+  replicas: 3 # Set to 1 for a simple setup
   selector:
     matchLabels:
       app: llmops
