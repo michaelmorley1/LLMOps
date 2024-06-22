@@ -5,7 +5,7 @@ metadata:
   labels:
     app: llmops
 spec:
-  replicas: 3 # Set to 1 for a simple setup
+  replicas: 2 
   selector:
     matchLabels:
       app: llmops
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: llmops-container
-        image: morlom/llmops:latest # Ensure this matches the image you push from Dockerfile
+        image: morlom/llmops:latest 
         ports:
         - containerPort: 5000 # Matches the EXPOSE instruction in Dockerfile
 
