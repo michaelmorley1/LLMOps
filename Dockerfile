@@ -14,4 +14,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 5000
 
 # Run projectcode.py when the container launches
-CMD ["python", "projectcode.py"]
+CMD ["python", "server.py"]
