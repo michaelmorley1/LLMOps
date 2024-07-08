@@ -157,4 +157,20 @@ button:hover {
     white-space: pre-wrap;
     font-size: 1em;
     margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.loader {
+    display: none; /* Hidden by default */
+}
+
+.loading .loader {
+    display: block; /* Show loader when in loading state */
+}
+
+.loading .plan-text {
+    display: none; /* Hide text when in loading state */
 }

@@ -1,8 +1,8 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, send_from_directory
 import logging
 from response_generator import ResponseGenerator
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
@@ -32,6 +32,10 @@ def generate_plan():
     except Exception as e:
         logging.error(f"An error occurred: {str(e)}")
         return jsonify({'error': 'Failed to generate plan'}), 500
+
+@app.route('/images/<path:filename>')
+def serve_image(filename):
+    return send_from_directory('images', filename)
 
 if __name__ == '__main__':
     app.run(debug=True)

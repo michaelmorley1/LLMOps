@@ -1,68 +1,34 @@
-document.getElementById('fitnessForm').addEventListener('submit', function(event) {
-    event.preventDefault();
+document.getElementById('fitnessForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
 
-    // Collect form data
-    const formData = new FormData(event.target);
-    const data = {};
-    formData.forEach((value, key) => {
-        if (!data[key]) {
-            data[key] = [];
-        }
-        data[key].push(value);
-    });
+    const formData = new FormData(e.target);
+    const advice = formData.getAll('advice');
+    const food = formData.getAll('food');
+    const exercise = formData.getAll('exercise');
 
-    // Prepare user message
     const userMessage = `
-        Advice: ${data.advice.join(', ')}
-        Food Preferences: ${data.food.join(', ') || 'None'}
-        Exercise Preferences: ${data.exercise.join(', ') || 'None'}
+        Advice: ${advice.join(', ')}
+        Food Preferences: ${food.join(', ')}
+        Exercise Preferences: ${exercise.join(', ')}
     `;
 
-    // Send the data to the server
-    fetch('/generate-plan', {
+    const planContainer = document.getElementById('planContainer');
+    const planText = document.getElementById('planText');
+    const loader = document.getElementById('loader');
+
+    planContainer.classList.add('loading'); // Add loading state
+    planText.textContent = ''; // Clear previous content
+
+    const response = await fetch('/generate-plan', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ user_message: userMessage })
-    })
-    .then(response => response.json())
-    .then(response => {
-        if (response.plan) {
-            const formattedPlan = breakLines(response.plan, 130); // Adjust maxLength here
-            displayPlan(formattedPlan);
-        } else {
-            displayPlan('Failed to generate plan.');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        displayPlan('An error occurred while generating the plan.');
+        body: JSON.stringify({ user_message: userMessage }),
     });
+
+    const data = await response.json();
+    planText.textContent = data.plan;
+    planContainer.classList.remove('loading'); // Remove loading state
+    planContainer.scrollIntoView({ behavior: 'smooth' }); // Scroll into view
 });
-
-function breakLines(text, maxLength) {
-    const words = text.split(' ');
-    let lines = [];
-    let currentLine = '';
-
-    words.forEach(word => {
-        if ((currentLine + word).length > maxLength) {
-            lines.push(currentLine.trim());
-            currentLine = word + ' ';
-        } else {
-            currentLine += word + ' ';
-        }
-    });
-
-    if (currentLine.length > 0) {
-        lines.push(currentLine.trim());
-    }
-
-    return lines.join('\n');
-}
-
-function displayPlan(plan) {
-    const planContainer = document.getElementById('planContainer');
-    planContainer.innerHTML = `<pre>${plan}</pre>`;
-}
