@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness App</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="background-shapes">
+        <!-- Shapes will be placed here -->
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
+        <div class="shape shape4"></div>
+        <div class="shape shape5"></div>
+        <!-- Add more shapes as needed -->
+    </div>
+    <header>
+        <h1>Fitness App</h1>
+    </header>
+    <main>
+        <div class="section">
+            <h2>Select Your Advice</h2>
+            <form id="fitnessForm">
+                <label>
+                    <input type="checkbox" name="advice" value="nutrition"> Nutrition Advice
+                </label>
+                <label>
+                    <input type="checkbox" name="advice" value="workout"> Workout Advice
+                </label>
+
+                <h3>Nutrition Preferences</h3>
+                <label>
+                    <input type="checkbox" name="food" value="gluten-free"> Gluten-free
+                </label>
+                <label>
+                    <input type="checkbox" name="food" value="dairy-free"> Dairy-free
+                </label>
+                <label>
+                    <input type="checkbox" name="food" value="vegan"> Vegan
+                </label>
+                <label>
+                    <input type="checkbox" name="food" value="vegetarian"> Vegetarian
+                </label>
+
+                <h3>Workout Preferences</h3>
+                <label>
+                    <input type="checkbox" name="exercise" value="cardio"> Cardio
+                </label>
+                <label>
+                    <input type="checkbox" name="exercise" value="strength"> Strength Training
+                </label>
+                <label>
+                    <input type="checkbox" name="exercise" value="flexibility"> Flexibility
+                </label>
+                <label>
+                    <input type="checkbox" name="exercise" value="balance"> Balance
+                </label>
+
+                <button type="submit">Generate Plan</button>
+            </form>
+        </div>
+        <div id="planContainer" class="plan-container"></div>
+    </main>
+    <script src="/static/script.js"></script>
+</body>
+</html>
