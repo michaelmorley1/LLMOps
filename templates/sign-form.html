@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/static/sign-form.css" />
+    <title>Multi-Step Form</title>
+</head>
+<body>
+    <div class="DESKTOP-profile-info">
+        <div class="contents">
+            <div class="progress-bar">
+                <div class="progress-step" id="progress-1"></div>
+                <div class="progress-step" id="progress-2"></div>
+                <div class="progress-step" id="progress-3"></div>
+                <div class="progress-step" id="progress-4"></div>
+                <div class="progress-step" id="progress-5"></div>
+            </div>
+            <div class="div">
+                <div class="title">
+                    <div class="large-title">Profile Info</div>
+                    <p class="body-text">
+                        Fill in the data for your profile. It will take a couple of minutes. <br />
+                        You only need basic information.
+                    </p>
+                </div>
+                <div class="space">
+                    <form id="signup-form" method="POST" action="/multi-step-form">
+                        <!-- Step 1: Name -->
+                        <div class="form-step" id="step-1">
+                            <div class="subhead">
+                                <div class="text-wrapper">Name</div>
+                            </div>
+                            <div class="input">
+                                <input class="field-text" placeholder="First Name" type="text" id="first-name" name="first_name" required />
+                            </div>
+                            <div class="input">
+                                <input class="field-text" placeholder="Surname" type="text" id="surname" name="surname" required />
+                            </div>
+                            <button type="button" class="secondary-button" onclick="nextStep(2)">Next</button>
+                        </div>
+                        <!-- Step 2: Gender & Height -->
+                        <div class="form-step" id="step-2" style="display: none;">
+                            <div class="subhead">
+                                <div class="text-wrapper">Gender & Height</div>
+                            </div>
+                            <div class="input">
+                                <select class="field-text" id="gender" name="gender" required>
+                                    <option value="" disabled selected>Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="input">
+                                <input class="field-text" placeholder="Height (cm)" type="number" id="height" name="height" required />
+                            </div>
+                            <button type="button" class="secondary-button" onclick="nextStep(3)">Next</button>
+                        </div>
+                        <!-- Step 3: Age & Weight -->
+                        <div class="form-step" id="step-3" style="display: none;">
+                            <div class="subhead">
+                                <div class="text-wrapper">Age & Weight</div>
+                            </div>
+                            <div class="input">
+                                <input class="field-text" placeholder="Age" type="number" id="age" name="age" required />
+                            </div>
+                            <div class="input">
+                                <input class="field-text" placeholder="Weight (kg)" type="number" id="weight" name="weight" required />
+                            </div>
+                            <button type="button" class="secondary-button" onclick="nextStep(4)">Next</button>
+                        </div>
+                        <!-- Step 4: Email -->
+                        <div class="form-step" id="step-4" style="display: none;">
+                            <div class="subhead">
+                                <div class="text-wrapper">Email Address</div>
+                            </div>
+                            <div class="input">
+                                <input class="field-text" placeholder="Email Address" type="email" id="email" name="email" required />
+                            </div>
+                            <button type="button" class="secondary-button" onclick="nextStep(5)">Next</button>
+                        </div>
+                        <!-- Step 5: Password & Confirm Password -->
+                        <div class="form-step" id="step-5" style="display: none;">
+                            <div class="subhead">
+                                <div class="text-wrapper">Password</div>
+                            </div>
+                            <div class="input">
+                                <input class="field-text" placeholder="Password" type="password" id="password" name="password" required />
+                            </div>
+                            <div class="input">
+                                <input class="field-text" placeholder="Confirm Password" type="password" id="confirm-password" name="confirm_password" required />
+                            </div>
+                            <button type="button" class="secondary-button" onclick="validatePasswords()">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/script.js"></script>
+</body>
+</html>
