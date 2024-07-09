@@ -19,4 +19,9 @@ spec:
         image: morlom/llmops:latest 
         ports:
         - containerPort: 5000 # Matches the EXPOSE instruction in Dockerfile
-
+        env:
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: openai-secret
+              key: api-key
