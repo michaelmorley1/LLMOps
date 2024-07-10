@@ -3,8 +3,7 @@ FROM python:3.9-slim-bullseye
 
 # Update and install system packages
 RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends git libopenexr25 && \
+    apt-get install -y some-package && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
