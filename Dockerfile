@@ -1,5 +1,11 @@
 # Specify Python version (replace with your required version)
-FROM python:3.9
+FROM python:3.9-slim-bullseye
+
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends git libaom3 libopenexr25 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Set the working directory to /app
 WORKDIR /app
