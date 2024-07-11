@@ -1,9 +1,8 @@
 # Specify Python version (replace with your required version)
 FROM python:3.9-slim-bullseye
 
-# Update and install system packages
+# Update and clean up
 RUN apt-get update && \
-    apt-get install -y some-package && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
