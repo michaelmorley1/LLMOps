@@ -1,5 +1,5 @@
-# Specify Python version (replace with your required version)
-FROM python:3.9-slim-bullseye
+# Specify Python version
+FROM python:3.9
 
 # Update and clean up
 RUN apt-get update && \
