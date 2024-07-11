@@ -40,33 +40,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // Event listener for form submission
     document.getElementById('signup-form').addEventListener('submit', async function(event) {
         event.preventDefault();
-        const isValid = validateForm();
-        if (isValid) {
+        if (validateForm()) {
             const formData = new FormData(event.target);
-            const data = {
-                first_name: formData.get('first_name'),
-                surname: formData.get('surname'),
-                gender: formData.get('gender'),
-                height: formData.get('height'),
-                age: formData.get('age'),
-                weight: formData.get('weight'),
-                email: formData.get('email'),
-                password: formData.get('password')
-            };
 
             try {
                 const response = await fetch('/multi-step-form', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
+                    body: formData,
                 });
 
-                const result = await response.json();
                 if (response.ok) {
-                    alert(result.message);
+                    // Redirect to the sign up page with a success parameter
+                    window.location.href = '/sign-up?success=true';
                 } else {
+                    const result = await response.json();
                     alert(result.error);
                 }
             } catch (error) {
@@ -79,7 +66,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // Add event listeners for blue dots to navigate steps
     document.querySelectorAll('.progress-step').forEach((dot, index) => {
         dot.addEventListener('click', () => {
-            nextStep(index + 1);
+            const currentStep = getCurrentStep();
+            if (index < currentStep - 1) {
+                nextStep(index + 1);
+            }
         });
     });
 });
@@ -90,6 +80,9 @@ function initMultiStepForm() {
 }
 
 function nextStep(step) {
+    // Validate current step before moving to the next
+    if (step > 1 && !validateCurrentStep(step - 1)) return;
+
     // Hide all steps
     document.querySelectorAll('.form-step').forEach(stepElement => {
         stepElement.style.display = 'none';
@@ -108,111 +101,112 @@ function nextStep(step) {
     });
 }
 
-function validateForm() {
+function validateCurrentStep(currentStep) {
     let isValid = true;
 
-    // Validate first name and surname
-    const firstName = document.getElementById('first-name');
-    const surname = document.getElementById('surname');
-    if (!firstName.value || !/^[a-zA-Z]+$/.test(firstName.value)) {
-        firstName.style.borderColor = 'red';
-        firstName.placeholder = 'Invalid input';
-        firstName.value = '';
-        isValid = false;
-    } else {
-        firstName.style.borderColor = '';
-    }
-    if (!surname.value || !/^[a-zA-Z]+$/.test(surname.value)) {
-        surname.style.borderColor = 'red';
-        surname.placeholder = 'Invalid input';
-        surname.value = '';
-        isValid = false;
-    } else {
-        surname.style.borderColor = '';
+    // Select inputs based on the current step
+    let inputs = [];
+    if (currentStep === 1) {
+        inputs = ['first-name', 'surname'];
+    } else if (currentStep === 2) {
+        inputs = ['gender', 'height'];
+    } else if (currentStep === 3) {
+        inputs = ['age', 'weight'];
+    } else if (currentStep === 4) {
+        inputs = ['email'];
+    } else if (currentStep === 5) {
+        inputs = ['password', 'confirm-password'];
     }
 
-    // Validate gender
-    const gender = document.getElementById('gender');
-    if (!gender.value) {
-        gender.style.borderColor = 'red';
-        isValid = false;
-    } else {
-        gender.style.borderColor = '';
-    }
-
-    // Validate height, age, weight
-    const height = document.getElementById('height');
-    const age = document.getElementById('age');
-    const weight = document.getElementById('weight');
-    if (!height.value || isNaN(height.value)) {
-        height.style.borderColor = 'red';
-        height.placeholder = 'Invalid input';
-        height.value = '';
-        isValid = false;
-    } else {
-        height.style.borderColor = '';
-    }
-    if (!age.value || isNaN(age.value)) {
-        age.style.borderColor = 'red';
-        age.placeholder = 'Invalid input';
-        age.value = '';
-        isValid = false;
-    } else {
-        age.style.borderColor = '';
-    }
-    if (!weight.value || isNaN(weight.value)) {
-        weight.style.borderColor = 'red';
-        weight.placeholder = 'Invalid input';
-        weight.value = '';
-        isValid = false;
-    } else {
-        weight.style.borderColor = '';
-    }
-
-    // Validate email
-    const email = document.getElementById('email');
-    if (!email.value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-        email.style.borderColor = 'red';
-        email.placeholder = 'Invalid email';
-        email.value = '';
-        isValid = false;
-    } else {
-        email.style.borderColor = '';
-    }
-
-    // Validate passwords
-    const password = document.getElementById('password');
-    const confirmPassword = document.getElementById('confirm-password');
-    if (!password.value) {
-        password.style.borderColor = 'red';
-        password.placeholder = 'Password required';
-        password.value = '';
-        isValid = false;
-    } else {
-        password.style.borderColor = '';
-    }
-    if (!confirmPassword.value || password.value !== confirmPassword.value) {
-        confirmPassword.style.borderColor = 'red';
-        confirmPassword.placeholder = 'Passwords do not match';
-        confirmPassword.value = '';
-        isValid = false;
-    } else {
-        confirmPassword.style.borderColor = '';
-    }
+    inputs.forEach(id => {
+        const input = document.getElementById(id);
+        if (input) {
+            if (id === 'first-name' || id === 'surname') {
+                if (!input.value || !/^[a-zA-Z]+$/.test(input.value)) {
+                    input.style.borderColor = 'red';
+                    input.placeholder = 'Invalid input';
+                    input.value = '';
+                    isValid = false;
+                } else {
+                    input.style.borderColor = '';
+                }
+            } else if (id === 'email') {
+                if (!input.value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) {
+                    input.style.borderColor = 'red';
+                    input.placeholder = 'Invalid email';
+                    input.value = '';
+                    isValid = false;
+                } else {
+                    input.style.borderColor = '';
+                }
+            } else if (id === 'gender') {
+                if (!input.value) {
+                    input.style.borderColor = 'red';
+                    isValid = false;
+                } else {
+                    input.style.borderColor = '';
+                }
+            } else if (id === 'height' || id === 'age' || id === 'weight') {
+                if (!input.value || isNaN(input.value) || input.value <= 0) {
+                    input.style.borderColor = 'red';
+                    input.placeholder = 'Invalid input';
+                    input.value = '';
+                    isValid = false;
+                } else {
+                    input.style.borderColor = '';
+                }
+            } else if (id === 'password' || id === 'confirm-password') {
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirm-password').value;
+                if (password !== confirmPassword) {
+                    document.getElementById('confirm-password').style.borderColor = 'red';
+                    document.getElementById('confirm-password').placeholder = 'Passwords do not match';
+                    document.getElementById('confirm-password').value = '';
+                    isValid = false;
+                } else {
+                    document.getElementById('confirm-password').style.borderColor = '';
+                }
+            }
+        }
+    });
 
     return isValid;
 }
 
-function validatePasswords() {
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirm-password').value;
+function validateForm() {
+    // Validate all steps
+    let isValid = true;
+    for (let step = 1; step <= 5; step++) {
+        if (!validateCurrentStep(step)) {
+            isValid = false;
+        }
+    }
+    return isValid;
+}
 
-    if (password !== confirmPassword) {
+function validatePasswords() {
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirm-password');
+
+    if (password && confirmPassword && password.value !== confirmPassword.value) {
         confirmPassword.style.borderColor = 'red';
         confirmPassword.placeholder = 'Passwords do not match';
-        return;
+        confirmPassword.value = '';
+        return false;
     }
 
     // Proceed to submit the form
-    document.getElementById('signup-form').submit();
+    if (password && confirmPassword) {
+        document.getElementById('signup-form').submit();
+    }
+}
+
+function getCurrentStep() {
+    const steps = document.querySelectorAll('.form-step');
+    for (let i = 0; i < steps.length; i++) {
+        if (steps[i].style.display !== 'none') {
+            return i + 1;
+        }
+    }
+    return 1;
 }

@@ -7,8 +7,6 @@
 .site-logo {
   width: 70px; 
   height: auto;
-  
-
 }
 
 .login {
@@ -17,8 +15,6 @@
   flex-direction: row;
   justify-content: center;
   width: 100%;
-  
-
 }
 
 .login .div {
@@ -26,8 +22,6 @@
   width: 1366px;
   height: 768px;
   position: relative;
-  
-
 }
 
 .login .overlap {
@@ -36,8 +30,6 @@
   height: 768px;
   top: 0;
   left: 595px;
-  
-
 }
 
 .login .rectangle {
@@ -46,7 +38,6 @@
   height: 768px;
   top: 0;
   left: 88px;
-  
   background: linear-gradient(180deg, rgb(145, 129, 244) 0%, rgb(80, 56, 237) 100%);
 }
 
@@ -56,8 +47,6 @@
   height: 768px;
   top: 0;
   left: 88px;
-  
-
 }
 
 .login .rectangle-2 {
@@ -72,8 +61,6 @@
   border-color: #ffffff85;
   backdrop-filter: blur(13.6px) brightness(100%);
   -webkit-backdrop-filter: blur(13.6px) brightness(100%);
-  
-
 }
 
 .login .unleash-the-power-of {
@@ -86,8 +73,6 @@
   font-size: 32px;
   letter-spacing: 0;
   line-height: 46px;
-  
-
 }
 
 .login .login-page-logo {
@@ -97,8 +82,6 @@
   top: 323px;
   left: 0;
   object-fit: cover;
-  
-
 }
 
 .login .group {
@@ -107,8 +90,6 @@
   height: 325px;
   top: 149px;
   left: 159px;
-  
-
 }
 
 .login .overlap-group-wrapper {
@@ -117,16 +98,12 @@
   height: 24px;
   top: 301px;
   left: 0;
-  
-
 }
 
 .login .overlap-group {
   position: relative;
   width: 364px;
   height: 24px;
-  
-
 }
 
 .login .text-wrapper {
@@ -140,8 +117,6 @@
   letter-spacing: 0;
   line-height: normal;
   cursor: pointer;
-  
-
 }
 
 .login .subtract {
@@ -150,8 +125,6 @@
   height: 1px;
   top: 11px;
   left: 0;
-  
-
 }
 
 .login .text-wrapper-2 {
@@ -165,8 +138,6 @@
   font-weight: 700;
   letter-spacing: 0;
   line-height: normal;
-  
-
 }
 
 .login .text-wrapper-3 {
@@ -179,8 +150,6 @@
   font-size: 16px;
   letter-spacing: 0;
   line-height: normal;
-  
-
 }
 
 .login .overlap-wrapper {
@@ -189,8 +158,6 @@
   height: 52px;
   top: 149px;
   left: 0;
-  
-
 }
 
 .login .overlap-2 {
@@ -199,8 +166,6 @@
   height: 52px;
   background-color: #efedffcc;
   border-radius: 16px;
-  
-
 }
 
 .login .text-wrapper-4 {
@@ -215,20 +180,14 @@
   font-size: 12px;
   letter-spacing: 0;
   line-height: normal;
-  
-
 }
 
 .login .text-wrapper-4:focus {
   outline: none;
-  
-
 }
 
 .login .text-wrapper-4::placeholder {
   color: #1c1c1c;
-  
-
 }
 
 .login .frame {
@@ -237,8 +196,6 @@
   height: 24px;
   top: 14px;
   left: 18px;
-  
-
 }
 
 .login .div-wrapper {
@@ -247,8 +204,6 @@
   height: 52px;
   top: 79px;
   left: 0;
-  
-
 }
 
 .login .group-2 {
@@ -257,8 +212,6 @@
   height: 52px;
   top: 225px;
   left: 120px;
-  
-
 }
 
 .login .overlap-3 {
@@ -269,8 +222,6 @@
   box-shadow: 0px 8px 21px #00000029;
   background: linear-gradient(180deg, rgb(145, 129, 244) 0%, rgb(80, 56, 237) 100%);
   cursor: pointer;
-  
-
 }
 
 .login .text-wrapper-5 {
@@ -284,6 +235,17 @@
   letter-spacing: 0;
   line-height: normal;
   cursor: pointer;
-  
+}
 
+.success-message {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #191b1c;
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  opacity: 1;
+  transition: opacity 1s ease-out;
 }
