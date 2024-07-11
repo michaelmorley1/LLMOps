@@ -1,0 +1,311 @@
+.profile-setting {
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .profile-setting .div {
+    background-color: #f9f9f9;
+    width: 1440px;
+    height: 1024px;
+    position: relative;
+  }
+  
+  .profile-setting .group {
+    position: absolute;
+    width: 233px;
+    height: 36px;
+    top: 32px;
+    left: 118px;
+  }
+  
+  .profile-setting .div-wrapper {
+    position: relative;
+    width: 235px;
+    height: 36px;
+  }
+  
+  .profile-setting .text-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-family: "Poppins-Medium", Helvetica;
+    font-weight: 500;
+    color: #3e435d;
+    font-size: 24px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .profile-setting .overlap {
+    position: absolute;
+    width: 1282px;
+    height: 856px;
+    top: 136px;
+    left: 118px;
+    background-color: #ffffff;
+    border-radius: 10px;
+  }
+  
+  .profile-setting .text-wrapper-2 {
+    position: absolute;
+    top: 263px;
+    left: 32px;
+    opacity: 0.8;
+    font-family: "Poppins-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .profile-setting .text-wrapper-3 {
+    position: absolute;
+    top: 375px;
+    left: 32px;
+    opacity: 0.8;
+    font-family: "Poppins-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .profile-setting .text-wrapper-4 {
+    position: absolute;
+    top: 487px;
+    left: 32px;
+    opacity: 0.8;
+    font-family: "Poppins-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .profile-setting .text-wrapper-5 {
+    position: absolute;
+    top: 263px;
+    left: 657px;
+    opacity: 0.8;
+    font-family: "Poppins-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .profile-setting .text-wrapper-6 {
+    position: absolute;
+    top: 375px;
+    left: 657px;
+    opacity: 0.8;
+    font-family: "Poppins-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .profile-setting .text-wrapper-7 {
+    position: absolute;
+    top: 487px;
+    left: 657px;
+    opacity: 0.8;
+    font-family: "Poppins-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .profile-setting .rectangle {
+    position: absolute;
+    width: 1282px;
+    height: 100px;
+    top: 0;
+    left: 0;
+  }
+  
+  .profile-setting .group-2 {
+    position: absolute;
+    width: 202px;
+    height: 60px;
+    top: 142px;
+    left: 52px;
+  }
+  
+  .profile-setting .text-wrapper-8 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-family: "Poppins-Medium", Helvetica;
+    font-weight: 500;
+    color: #000000;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .profile-setting .text-wrapper-9 {
+    position: absolute;
+    top: 36px;
+    left: 0;
+    opacity: 0.5;
+    font-family: "Poppins-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .profile-setting .group-3 {
+    position: absolute;
+    width: 200px;
+    height: 24px;
+    top: 655px;
+    left: 100px;
+  }
+  
+  .profile-setting .text-wrapper-10 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-family: "Poppins-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .profile-setting .overlap-group-wrapper {
+    position: absolute;
+    width: 95px;
+    height: 44px;
+    top: 160px;
+    left: 1157px;
+  }
+  
+  .profile-setting .overlap-group {
+    position: relative;
+    width: 93px;
+    height: 44px;
+    background-color: #4182f9;
+    border-radius: 8px;
+  }
+  
+  .profile-setting .text-wrapper-11 {
+    position: absolute;
+    top: 10px;
+    left: 32px;
+    font-family: "Poppins-Regular", Helvetica;
+    font-weight: 400;
+    color: #ffffff;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .profile-setting .overlap-2 {
+    position: absolute;
+    width: 593px;
+    height: 52px;
+    top: 300px;
+    left: 32px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .profile-setting .text-wrapper-12 {
+    position: absolute;
+    top: 13px;
+    left: 20px;
+    opacity: 0.4;
+    font-family: "Poppins-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .profile-setting .overlap-3 {
+    position: absolute;
+    width: 593px;
+    height: 52px;
+    top: 412px;
+    left: 32px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .profile-setting .overlap-4 {
+    position: absolute;
+    width: 593px;
+    height: 52px;
+    top: 524px;
+    left: 32px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .profile-setting .overlap-5 {
+    position: absolute;
+    width: 593px;
+    height: 52px;
+    top: 300px;
+    left: 657px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .profile-setting .overlap-6 {
+    position: absolute;
+    width: 593px;
+    height: 52px;
+    top: 412px;
+    left: 657px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .profile-setting .overlap-7 {
+    position: absolute;
+    width: 593px;
+    height: 52px;
+    top: 524px;
+    left: 657px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .profile-setting .text-wrapper-13 {
+    position: absolute;
+    top: 607px;
+    left: 32px;
+    font-family: "Poppins-Medium", Helvetica;
+    font-weight: 500;
+    color: #000000;
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .profile-setting .vuesax-bold-sms {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 655px;
+    left: 50px;
+  }
+  

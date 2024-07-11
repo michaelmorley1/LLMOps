@@ -42,30 +42,18 @@ document.addEventListener('DOMContentLoaded', (event) => {
         event.preventDefault();
         if (validateForm()) {
             const formData = new FormData(event.target);
-            const data = {
-                first_name: formData.get('first_name'),
-                surname: formData.get('surname'),
-                gender: formData.get('gender'),
-                height: formData.get('height'),
-                age: formData.get('age'),
-                weight: formData.get('weight'),
-                email: formData.get('email'),
-                password: formData.get('password')
-            };
 
             try {
                 const response = await fetch('/multi-step-form', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
+                    body: formData,
                 });
 
-                const result = await response.json();
                 if (response.ok) {
-                    alert(result.message);
+                    // Redirect to the sign up page with a success parameter
+                    window.location.href = '/sign-up?success=true';
                 } else {
+                    const result = await response.json();
                     alert(result.error);
                 }
             } catch (error) {
@@ -78,7 +66,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // Add event listeners for blue dots to navigate steps
     document.querySelectorAll('.progress-step').forEach((dot, index) => {
         dot.addEventListener('click', () => {
-            nextStep(index + 1);
+            const currentStep = getCurrentStep();
+            if (index < currentStep - 1) {
+                nextStep(index + 1);
+            }
         });
     });
 });
@@ -208,4 +199,14 @@ function validatePasswords() {
     if (password && confirmPassword) {
         document.getElementById('signup-form').submit();
     }
+}
+
+function getCurrentStep() {
+    const steps = document.querySelectorAll('.form-step');
+    for (let i = 0; i < steps.length; i++) {
+        if (steps[i].style.display !== 'none') {
+            return i + 1;
+        }
+    }
+    return 1;
 }
