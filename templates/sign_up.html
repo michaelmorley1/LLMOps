@@ -28,19 +28,19 @@
                 <div class="text-wrapper-3">Your Journey begins</div>
                 <div class="div-wrapper">
                     <div class="overlap-2">
-                        <input type="text" class="text-wrapper-4" id="username" placeholder="Username" />
+                        <input type="text" class="text-wrapper-4" id="email" name="email" placeholder="Email" />
                         <img class="frame" src="/images/frame.svg" />
                     </div>
                 </div>
                 <div class="overlap-wrapper">
                     <div class="overlap-2">
-                        <input type="password" class="text-wrapper-4" id="password" placeholder="Password" />
+                        <input type="password" class="text-wrapper-4" id="password" name="password" placeholder="Password" />
                         <img class="frame" src="/images/frame (1).svg" />
                     </div>
                 </div>
                 <div class="group-2">
-                    <div class="overlap-3">
-                        <div class="text-wrapper-5" id="login-button">Login Now</div>
+                    <div class="overlap-3" id="login-button">
+                        <div class="text-wrapper-5">Login Now</div>
                     </div>
                 </div>
             </div>
@@ -49,22 +49,7 @@
     <div id="success-message" class="success-message" style="display: none;">
         Successfully signed up! Login now.
     </div>
-    <script src="/static/script.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const success = urlParams.get('success');
-            if (success) {
-                const successMessage = document.getElementById('success-message');
-                successMessage.style.display = 'block';
-                setTimeout(() => {
-                    successMessage.style.opacity = 0;
-                }, 3000);
-                setTimeout(() => {
-                    successMessage.style.display = 'none';
-                }, 5000);
-            }
-        });
-    </script>
+    <script src="/static/common.js"></script>
+    <script src="/static/login.js"></script>
 </body>
 </html>

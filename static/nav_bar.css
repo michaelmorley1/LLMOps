@@ -1,0 +1,84 @@
+.dark-mode {
+    background-color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%; /* Make sure the navbar stretches across the entire width */
+    box-sizing: border-box; /* Ensure padding is included in the width calculation */
+}
+
+.links {
+    display: flex;
+    gap: 30px; /* Increase the gap for better spacing */
+}
+
+.text-wrapper {
+    color: white;
+    font-family: "Poppins-Regular", Helvetica;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none; /* Remove underline from links */
+    padding: 10px 20px; /* Add padding for better clickability */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.text-wrapper a {
+    color: white; /* Ensure text is white */
+    text-decoration: none; /* Remove underline from links */
+}
+
+.text-wrapper a:hover {
+    background-color: #555; /* Slight background change on hover */
+    color: #fff; /* Ensure text is readable */
+    border-radius: 5px;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.login-button, .signup-button {
+    background-color: #333;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: white;
+    cursor: pointer;
+    font-family: "Poppins-Bold", Helvetica;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none; /* Remove underline from links */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.login-button a, .signup-button a {
+    color: white; /* Ensure text is white */
+    text-decoration: none; /* Remove underline from links */
+}
+
+.login-button:hover, .signup-button:hover {
+    background-color: #555; /* Slight background change on hover */
+    color: #fff; /* Ensure text is readable */
+}
+
+.content {
+    margin-top: 60px; /* Add more margin to separate the navbar from the content */
+}
+
+.success-message {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #191b1c;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    opacity: 1;
+    transition: opacity 1s ease-out;
+}

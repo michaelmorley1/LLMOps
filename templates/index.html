@@ -1,12 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fitness App</title>
+{% extends "nav_bar.html" %}
+
+{% block head %}
+    <title>Your Plan Your Way</title>
     <link rel="stylesheet" href="/static/index.css">
-</head>
-<body>
+{% endblock %}
+
+{% block content %}
+<title>Your Plan Your Way</title>
+<link rel="stylesheet" href="/static/index.css">
     <div class="background-shapes">
         <!-- Shapes will be placed here -->
         <div class="shape shape1"></div>
@@ -16,8 +17,8 @@
         <div class="shape shape5"></div>
         <!-- Add more shapes as needed -->
     </div>
-    <header>
-        <h1>Fitness App</h1>
+    <header style="margin-top: 50px;">
+        <h1>Your Plan Your Way 💪</h1>
     </header>
     <main>
         <div class="section">
@@ -66,6 +67,6 @@
             <div id="planText" class="plan-text"></div>
         </div>
     </main>
-    <script src="/static/script.js"></script>
-</body>
-</html>
+    <script src="/static/common.js"></script>
+    <script src="/static/fitness_form.js"></script>
+{% endblock %}
