@@ -26,25 +26,30 @@
                 </div>
                 <div class="text-wrapper-2">LOGIN</div>
                 <div class="text-wrapper-3">Your Journey begins</div>
-                <div class="div-wrapper">
-                    <div class="overlap-2">
-                        <input type="text" class="text-wrapper-4" id="email" name="email" placeholder="Email" />
-                        <img class="frame" src="/images/frame.svg" />
+                <form id="login-form">
+                    <div class="div-wrapper">
+                        <div class="overlap-2">
+                            <input type="text" class="text-wrapper-4" id="email" name="email" placeholder="Email" />
+                            <img class="frame" src="/images/frame.svg" />
+                        </div>
                     </div>
-                </div>
-                <div class="overlap-wrapper">
-                    <div class="overlap-2">
-                        <input type="password" class="text-wrapper-4" id="password" name="password" placeholder="Password" />
-                        <img class="frame" src="/images/frame (1).svg" />
+                    <div class="overlap-wrapper">
+                        <div class="overlap-2">
+                            <input type="password" class="text-wrapper-4" id="password" name="password" placeholder="Password" />
+                            <img class="frame" src="/images/frame (1).svg" />
+                        </div>
                     </div>
-                </div>
-                <div class="group-2">
-                    <div class="overlap-3" id="login-button">
-                        <div class="text-wrapper-5">Login Now</div>
+                    <div class="group-2">
+                        <button type="submit" class="overlap-3" id="login-button">
+                            <div class="text-wrapper-5">Login Now</div>
+                        </button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
+    </div>
+    <div id="login-fail-message" class="error-message" style="display: none;">
+        Failed to log in! Please check your email and password.
     </div>
     <div id="success-message" class="success-message" style="display: none;">
         Successfully signed up! Login now.

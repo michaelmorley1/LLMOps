@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 });
 
                 if (response.ok) {
-                    // Redirect to the sign-up page with a success parameter
-                    window.location.href = '/sign-up?success=true';
+                    // Redirect to the index page with a success parameter
+                    window.location.href = '/?success=true';
                 } else {
                     const result = await response.json();
                     alert(result.error);
@@ -31,10 +31,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // Add event listeners for blue dots to navigate steps
     document.querySelectorAll('.progress-step').forEach((dot, index) => {
         dot.addEventListener('click', () => {
-            const currentStep = getCurrentStep();
-            if (index < currentStep - 1) {
-                nextStep(index + 1);
-            }
+            nextStep(index + 1);
         });
     });
 });
@@ -57,7 +54,7 @@ function nextStep(step) {
     document.getElementById('step-' + step).style.display = 'block';
 
     // Update progress bar
-    document.queryAll('.progress-bar .progress-step').forEach((indicator, index) => {
+    document.querySelectorAll('.progress-step').forEach((indicator, index) => {
         if (index < step) {
             indicator.classList.add('active-indicator');
         } else {

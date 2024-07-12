@@ -13,3 +13,4 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }, 5000);
     }
 });
+
