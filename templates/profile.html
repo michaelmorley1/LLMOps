@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/static/profile.css" />
+    <title>Profile</title>
+</head>
+<body>
+    <div class="profile-setting">
+        <div class="div">
+            <div class="group">
+                <div class="div-wrapper"><div class="text-wrapper">Welcome, {{ user[0] }} {{ user[1] }}</div></div>
+            </div>
+            <div class="overlap">
+                <div class="text-wrapper-2">Full Name</div>
+                <div class="overlap-2"><div class="text-wrapper-12">{{ user[0] }} {{ user[1] }}</div></div>
+                
+                <div class="text-wrapper-3">Gender</div>
+                <div class="overlap-3"><div class="text-wrapper-12">{{ user[2] }}</div></div>
+                
+                <div class="text-wrapper-4">Height</div>
+                <div class="overlap-4"><div class="text-wrapper-12">{{ user[3] }} cm</div></div>
+                
+                <div class="text-wrapper-5">Age</div>
+                <div class="overlap-5"><div class="text-wrapper-12">{{ user[4] }} years</div></div>
+                
+                <div class="text-wrapper-6">Weight</div>
+                <div class="overlap-6"><div class="text-wrapper-12">{{ user[5] }} kg</div></div>
+                
+                <div class="text-wrapper-7">Email</div>
+                <div class="overlap-7"><div class="text-wrapper-12">{{ user[6] }}</div></div>
+                
+                <img class="rectangle" src="/images/Rectangle.png" />
+                
+                <div class="group-2">
+                    <div class="text-wrapper-8">{{ user[0] }} {{ user[1] }}</div>
+                    <div class="text-wrapper-9">{{ user[6] }}</div>
+                </div>
+                
+                <div class="overlap-group-wrapper">
+                    <div class="overlap-group"><div class="text-wrapper-11">Edit</div></div>
+                </div>
+        </div>
+    </div>
+</body>
+</html>

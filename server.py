@@ -1,10 +1,11 @@
-from flask import Flask, request, jsonify, render_template, send_from_directory, redirect, url_for
+from flask import Flask, request, jsonify, render_template, send_from_directory, redirect, url_for, session
 import sqlite3
 import bcrypt
 import logging
 from response_generator import ResponseGenerator
 
 app = Flask(__name__, static_folder='static')
+app.secret_key = 'your_secret_key'  # Replace with a secure key
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
@@ -14,7 +15,7 @@ response_generator = ResponseGenerator()
 
 # Initialize the database
 def init_db():
-    conn = sqlite3.connect('users.db', timeout=10)
+    conn = sqlite3.connect('users.db')
     cursor = conn.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS users (
@@ -38,10 +39,13 @@ init_db()
 def index():
     return render_template('index.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 @app.route('/sign-up')
 def sign_up():
-    success = request.args.get('success')
-    return render_template('sign_up.html', success=success)
+    return render_template('sign_up.html')
 
 @app.route('/generate-plan', methods=['POST'])
 def generate_plan():
@@ -87,8 +91,8 @@ def multi_step_form():
             # Hash the password
             hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
-            # Connect to the database with a timeout
-            conn = sqlite3.connect('users.db', timeout=10)
+            # Connect to the database
+            conn = sqlite3.connect('users.db')
             cursor = conn.cursor()
             cursor.execute('''
                 INSERT INTO users (first_name, surname, gender, height, age, weight, email, password)
@@ -100,16 +104,69 @@ def multi_step_form():
         except sqlite3.IntegrityError as e:
             logging.error(f"An error occurred while processing the form: {str(e)}")
             return jsonify({'error': 'Email already exists'}), 400
-        except sqlite3.OperationalError as e:
-            logging.error(f"An error occurred while processing the form: {str(e)}")
-            return jsonify({'error': 'Database is locked, please try again later'}), 500
         except Exception as e:
             logging.error(f"An error occurred while processing the form: {str(e)}")
             return jsonify({'error': 'Failed to submit form'}), 500
 
-@app.route('/signup_form')
-def signup_form():
-    return render_template('sign_up.html')
+@app.route('/login', methods=['POST'])
+def login():
+    email = request.form.get('email')
+    password = request.form.get('password').encode('utf-8')
+
+    conn = sqlite3.connect('users.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM users WHERE email = ?', (email,))
+    user = cursor.fetchone()
+    conn.close()
+
+    if user and bcrypt.checkpw(password, user[-1]):
+        session['user_id'] = user[0]
+        session['user_name'] = f"{user[1]} {user[2]}"
+        return redirect(url_for('index'))
+    else:
+        return jsonify({'error': 'Invalid email or password'}), 401
+
+@app.route('/profile')
+def profile():
+    if 'user_id' not in session:
+        return redirect(url_for('sign_up'))
+
+    conn = sqlite3.connect('users.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT first_name, surname, gender, height, age, weight, email FROM users WHERE id = ?', (session['user_id'],))
+    user = cursor.fetchone()
+    conn.close()
+
+    return render_template('profile.html', user=user)
+
+@app.route('/update-profile', methods=['POST'])
+def update_profile():
+    if 'user_id' not in session:
+        return redirect(url_for('sign_up'))
+
+    first_name = request.form.get('first_name')
+    surname = request.form.get('surname')
+    gender = request.form.get('gender')
+    height = request.form.get('height')
+    age = request.form.get('age')
+    weight = request.form.get('weight')
+
+    conn = sqlite3.connect('users.db')
+    cursor = conn.cursor()
+    cursor.execute('''
+        UPDATE users
+        SET first_name = ?, surname = ?, gender = ?, height = ?, age = ?, weight = ?
+        WHERE id = ?
+    ''', (first_name, surname, gender, height, age, weight, session['user_id']))
+    conn.commit()
+    conn.close()
+
+    return redirect(url_for('profile'))
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('sign_up'))
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

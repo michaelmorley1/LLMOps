@@ -1,18 +1,4 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-    // Handle success message display
-    const urlParams = new URLSearchParams(window.location.search);
-    const success = urlParams.get('success');
-    if (success) {
-        const successMessage = document.getElementById('success-message');
-        successMessage.style.display = 'block';
-        setTimeout(() => {
-            successMessage.style.opacity = 0;
-        }, 3000);
-        setTimeout(() => {
-            successMessage.style.display = 'none';
-        }, 5000);
-    }
-
     // Initialize the multi-step form
     initMultiStepForm();
 
@@ -51,68 +37,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
         });
     });
-
-    // Event listener for the login form submission
-    document.getElementById('login-form').addEventListener('submit', async function(event) {
-        event.preventDefault();
-
-        const formData = new FormData(event.target);
-        const email = formData.get('email');
-        const password = formData.get('password');
-
-        try {
-            const response = await fetch('/login', {
-                method: 'POST',
-                body: formData,
-            });
-
-            if (response.ok) {
-                window.location.href = '/profile';
-            } else {
-                const result = await response.json();
-                alert(result.error);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Failed to log in');
-        }
-    });
-
-    // Event listener for the fitness form submission
-    document.getElementById('fitnessForm').addEventListener('submit', async function (e) {
-        e.preventDefault();
-
-        const formData = new FormData(e.target);
-        const advice = formData.getAll('advice');
-        const food = formData.getAll('food');
-        const exercise = formData.getAll('exercise');
-
-        const userMessage = `
-            Advice: ${advice.join(', ')}
-            Food Preferences: ${food.join(', ')}
-            Exercise Preferences: ${exercise.join(', ')}
-        `;
-
-        const planContainer = document.getElementById('planContainer');
-        const planText = document.getElementById('planText');
-        const loader = document.getElementById('loader');
-
-        planContainer.classList.add('loading'); // Add loading state
-        planText.textContent = ''; // Clear previous content
-
-        const response = await fetch('/generate-plan', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ user_message: userMessage }),
-        });
-
-        const data = await response.json();
-        planText.textContent = data.plan;
-        planContainer.classList.remove('loading'); // Remove loading state
-        planContainer.scrollIntoView({ behavior: 'smooth' }); // Scroll into view
-    });
 });
 
 function initMultiStepForm() {
@@ -133,7 +57,7 @@ function nextStep(step) {
     document.getElementById('step-' + step).style.display = 'block';
 
     // Update progress bar
-    document.querySelectorAll('.progress-bar .progress-step').forEach((indicator, index) => {
+    document.queryAll('.progress-bar .progress-step').forEach((indicator, index) => {
         if (index < step) {
             indicator.classList.add('active-indicator');
         } else {
