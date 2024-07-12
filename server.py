@@ -35,6 +35,10 @@ def init_db():
 
 init_db()
 
+@app.context_processor
+def inject_user():
+    return dict(logged_in=('user_id' in session))
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -100,13 +104,16 @@ def multi_step_form():
             ''', (first_name, surname, gender, height, age, weight, email, hashed_password))
             conn.commit()
             conn.close()
-            return jsonify({'message': 'Form submitted successfully!'}), 200
+            session['user_id'] = cursor.lastrowid
+            session['user_name'] = f"{first_name} {surname}"
+            return redirect(url_for('index', success='true'))
         except sqlite3.IntegrityError as e:
             logging.error(f"An error occurred while processing the form: {str(e)}")
             return jsonify({'error': 'Email already exists'}), 400
         except Exception as e:
             logging.error(f"An error occurred while processing the form: {str(e)}")
             return jsonify({'error': 'Failed to submit form'}), 500
+
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -125,6 +132,7 @@ def login():
         return redirect(url_for('index'))
     else:
         return jsonify({'error': 'Invalid email or password'}), 401
+
 
 @app.route('/profile')
 def profile():
