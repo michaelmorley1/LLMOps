@@ -1,7 +1,9 @@
 Flask==2.2.5
-Werkzeug==2.2.2  # Flask depends on Werkzeug
+Werkzeug==3.0.3  # Flask depends on Werkzeug
 Jinja2==3.0.3  # Flask depends on Jinja2
 itsdangerous==2.0.1  # Flask depends on itsdangerous
 click==8.0.3  # Flask depends on Click (optional dependency)
 certifi>=2023.7.22  # For SSL certificate validation (if needed)
 requests==2.26.0  # If you're making HTTP requests within your Flask app
+openai
+python-dotenv

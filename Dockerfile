@@ -1,5 +1,11 @@
 # Specify Python version (replace with your required version)
-FROM python:3.9
+FROM python:3.9-slim-bullseye
+
+# Update and install system packages
+RUN apt-get update && \
+    apt-get install -y some-package && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Set the working directory to /app
 WORKDIR /app
@@ -14,4 +20,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 5000
 
 # Run projectcode.py when the container launches
-CMD ["python", "projectcode.py"]
+CMD ["python", "server.py"]
