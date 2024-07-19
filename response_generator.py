@@ -10,7 +10,7 @@ class ChatGPTClient:
             raise ValueError("API key is required")
         self.client = OpenAI(api_key=self.api_key)
 
-    def chat_with_gpt(self, system_message, user_message, model="gpt-3.5-turbo"):
+    def chat_with_gpt(self, system_message, user_message, model="gpt-4o"):
         try:
             response = self.client.chat.completions.create(
                 model=model,
@@ -28,7 +28,13 @@ class ChatGPTClient:
 class ResponseGenerator:
     def __init__(self):
         self.chat_gpt_client = ChatGPTClient()
-        self.system_msg = "Nutrition and workout plan expert"
+        self.system_msg = """You are a Nutrition and workout plan expert
+        Make a weekly day by day plan
+        make it personalised and always greet the user by their name,
+        always mention their age, height and weight base the plan around such information.
+        make it very personlised make sure the user can see you know who they are and give very specialised advise
+        Never include this in the message Best, [Your Name]
+        """
 
     def generate_response(self, user_message):
         return self.chat_gpt_client.chat_with_gpt(self.system_msg, user_message)
