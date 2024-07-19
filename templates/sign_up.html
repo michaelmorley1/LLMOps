@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
+{% extends "nav_bar.html" %}
+
+{% block head %}
+    <title>Your Plan Your Way</title>
+    <link rel="stylesheet" href="/static/sign_up.css">
+{% endblock %}
+    
+    {% block content %}
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="/static/sign_up.css" />
     <title>Login</title>
 </head>
 <body>
-    <div class="logo-container">
-        <img class="site-logo" src="/images/site_logo.png" alt="Site Logo" id="site-logo" />
-    </div>
     <div class="login">
         <div class="div">
             <div class="overlap">
@@ -58,3 +63,4 @@
     <script src="/static/login.js"></script>
 </body>
 </html>
+{% endblock %}

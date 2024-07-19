@@ -6,8 +6,7 @@
 {% endblock %}
 
 {% block content %}
-<title>Your Plan Your Way</title>
-<link rel="stylesheet" href="/static/index.css">
+    <link rel="stylesheet" href="/static/index.css">
     <div class="background-shapes">
         <!-- Shapes will be placed here -->
         <div class="shape shape1"></div>
@@ -22,45 +21,79 @@
     </header>
     <main>
         <div class="section">
-            <h2>Select Your Advice</h2>
-            <form id="fitnessForm">
-                <label>
-                    <input type="checkbox" name="advice" value="nutrition"> Nutrition Advice
-                </label>
-                <label>
-                    <input type="checkbox" name="advice" value="workout"> Workout Advice
-                </label>
-
-                <h3>Nutrition Preferences</h3>
-                <label>
-                    <input type="checkbox" name="food" value="gluten-free"> Gluten-free
-                </label>
-                <label>
-                    <input type="checkbox" name="food" value="dairy-free"> Dairy-free
-                </label>
-                <label>
-                    <input type="checkbox" name="food" value="vegan"> Vegan
-                </label>
-                <label>
-                    <input type="checkbox" name="food" value="vegetarian"> Vegetarian
-                </label>
-
-                <h3>Workout Preferences</h3>
-                <label>
-                    <input type="checkbox" name="exercise" value="cardio"> Cardio
-                </label>
-                <label>
-                    <input type="checkbox" name="exercise" value="strength"> Strength Training
-                </label>
-                <label>
-                    <input type="checkbox" name="exercise" value="flexibility"> Flexibility
-                </label>
-                <label>
-                    <input type="checkbox" name="exercise" value="balance"> Balance
-                </label>
-
-                <button type="submit">Generate Plan</button>
-            </form>
+            <div class="DESKTOP-profile-info dark-mode">
+                <div class="contents">
+                    <div class="progress-bar">
+                        <div class="progress-step" id="progress-1" onclick="goToStep(1)"></div>
+                        <div class="progress-step" id="progress-2" onclick="goToStep(2)"></div>
+                        <div class="progress-step" id="progress-3" onclick="goToStep(3)"></div>
+                    </div>
+                    <div class="title">
+                        <div class="large-title">Select Your Advice</div>
+                    </div>
+                    <div class="space">
+                        <form id="fitnessForm">
+                            <!-- Step 1: Advice Type -->
+                            <div class="form-step" id="step-1">
+                                <div class="subhead">
+                                    <div class="text-wrapper">Advice Type</div>
+                                </div>
+                                <div class="input">
+                                    <label>
+                                        <input type="checkbox" name="advice" value="nutrition"> Nutrition Advice
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="advice" value="workout"> Workout Advice
+                                    </label>
+                                </div>
+                                <button type="button" class="secondary-button" onclick="nextStep(2)">Next</button>
+                            </div>
+                            <!-- Step 2: Nutrition Preferences -->
+                            <div class="form-step" id="step-2" style="display: none;">
+                                <div class="subhead">
+                                    <div class="text-wrapper">Nutrition Preferences</div>
+                                </div>
+                                <div class="input">
+                                    <label>
+                                        <input type="checkbox" name="food" value="gluten-free"> Gluten-free
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="food" value="dairy-free"> Dairy-free
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="food" value="vegan"> Vegan
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="food" value="vegetarian"> Vegetarian
+                                    </label>
+                                </div>
+                                <button type="button" class="secondary-button" onclick="nextStep(3)">Next</button>
+                            </div>
+                            <!-- Step 3: Workout Preferences -->
+                            <div class="form-step" id="step-3" style="display: none;">
+                                <div class="subhead">
+                                    <div class="text-wrapper">Workout Preferences</div>
+                                </div>
+                                <div class="input">
+                                    <label>
+                                        <input type="checkbox" name="exercise" value="cardio"> Cardio
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="exercise" value="strength"> Strength Training
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="exercise" value="flexibility"> Flexibility
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="exercise" value="balance"> Balance
+                                    </label>
+                                </div>
+                                <button type="submit" class="secondary-button">Generate Plan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
         <div id="planContainer" class="plan-container">
             <img id="loader" class="loader" src="/images/gif_loader.gif" alt="Loading...">
@@ -72,4 +105,5 @@
     </div>
     <script src="/static/common.js"></script>
     <script src="/static/fitness_form.js"></script>
+    <script src="/static/multi_step_form.js"></script>
 {% endblock %}

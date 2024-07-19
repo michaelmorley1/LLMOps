@@ -59,6 +59,19 @@ def generate_plan():
     logging.debug(f"Received user message: {user_message}")
 
     try:
+        # Retrieve user information if logged in
+        if 'user_id' in session:
+            conn = sqlite3.connect('users.db')
+            cursor = conn.cursor()
+            cursor.execute('SELECT first_name, surname, gender, height, age, weight FROM users WHERE id = ?', (session['user_id'],))
+            user_info = cursor.fetchone()
+            conn.close()
+            
+            if user_info:
+                user_info_str = f"User Info - Name: {user_info[0]} {user_info[1]}, Gender: {user_info[2]}, Height: {user_info[3]}, Age: {user_info[4]}, Weight: {user_info[5]}"
+                user_message = f"{user_info_str}\n{user_message}"
+                logging.debug(f"User information added to message: {user_message}")
+
         plan = response_generator.generate_response(user_message)
         if plan:
             logging.debug(f"Generated plan: {plan}")
@@ -103,9 +116,9 @@ def multi_step_form():
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             ''', (first_name, surname, gender, height, age, weight, email, hashed_password))
             conn.commit()
-            conn.close()
             session['user_id'] = cursor.lastrowid
             session['user_name'] = f"{first_name} {surname}"
+            conn.close()
             return redirect(url_for('index', success='true'))
         except sqlite3.IntegrityError as e:
             logging.error(f"An error occurred while processing the form: {str(e)}")
@@ -113,7 +126,6 @@ def multi_step_form():
         except Exception as e:
             logging.error(f"An error occurred while processing the form: {str(e)}")
             return jsonify({'error': 'Failed to submit form'}), 500
-
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -132,7 +144,6 @@ def login():
         return redirect(url_for('index'))
     else:
         return jsonify({'error': 'Invalid email or password'}), 401
-
 
 @app.route('/profile')
 def profile():
