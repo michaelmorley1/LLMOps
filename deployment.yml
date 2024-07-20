@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
       - name: llmops-container
-        image: morlom/llmops:latest 
+        image: morlom/llmops:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 5000 # Matches the EXPOSE instruction in Dockerfile
         env:
