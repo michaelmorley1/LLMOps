@@ -41,7 +41,9 @@ def inject_user():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    user_logged_in = 'user_id' in session
+    return render_template('index.html', user_logged_in=user_logged_in)
+
 
 @app.route('/about')
 def about():
@@ -119,7 +121,7 @@ def multi_step_form():
             session['user_id'] = cursor.lastrowid
             session['user_name'] = f"{first_name} {surname}"
             conn.close()
-            return redirect(url_for('index', success='true'))
+            return redirect(url_for('sign_up', success='true'))
         except sqlite3.IntegrityError as e:
             logging.error(f"An error occurred while processing the form: {str(e)}")
             return jsonify({'error': 'Email already exists'}), 400
@@ -163,12 +165,13 @@ def update_profile():
     if 'user_id' not in session:
         return redirect(url_for('sign_up'))
 
-    first_name = request.form.get('first_name')
-    surname = request.form.get('surname')
-    gender = request.form.get('gender')
-    height = request.form.get('height')
-    age = request.form.get('age')
-    weight = request.form.get('weight')
+    data = request.json
+    first_name = data.get('first_name')
+    surname = data.get('surname')
+    gender = data.get('gender')
+    height = data.get('height')
+    age = data.get('age')
+    weight = data.get('weight')
 
     conn = sqlite3.connect('users.db')
     cursor = conn.cursor()
@@ -180,7 +183,7 @@ def update_profile():
     conn.commit()
     conn.close()
 
-    return redirect(url_for('profile'))
+    return jsonify({'message': 'Profile updated successfully'}), 200
 
 @app.route('/logout')
 def logout():

@@ -308,4 +308,24 @@
     top: 655px;
     left: 50px;
   }
-  
+  .overlap-group button {
+    background-color: #007aff;
+    color: #ffffff;
+    font-family: "Poppins-Regular", Helvetica;
+    font-weight: 400;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.overlap-group button:hover {
+    background-color: #005bb5;
+}
+
+#save-button {
+    display: block;
+    color: #ffffff;
+}

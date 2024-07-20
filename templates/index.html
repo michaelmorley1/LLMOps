@@ -20,6 +20,14 @@
         <h1>Your Plan Your Way 💪</h1>
     </header>
     <main>
+        {% if not user_logged_in %}
+        <div class="overlay">
+            <div class="overlay-content">
+                <p>You need to login or sign up to access the fitness coach.</p>
+                <button onclick="window.location.href='/sign-up'">Sign Up or Login</button>
+            </div>
+        </div>
+        {% else %}
         <div class="section">
             <div class="DESKTOP-profile-info dark-mode">
                 <div class="contents">
@@ -99,6 +107,7 @@
             <img id="loader" class="loader" src="/images/gif_loader.gif" alt="Loading...">
             <div id="planText" class="plan-text"></div>
         </div>
+        {% endif %}
     </main>
     <div id="login-success-message" class="success-message" style="display: none;">
         Successfully logged in!
