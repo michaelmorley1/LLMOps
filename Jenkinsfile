@@ -118,6 +118,9 @@ pipeline {
                             // Apply the deployment
                             sh 'kubectl apply -f deployment.yml'
                             
+                            // Force a rollout restart to ensure the latest image is pulled
+                            sh 'kubectl rollout restart deployment llmops-deployment'
+                            
                             // Wait for the deployment to complete
                             sh 'kubectl rollout status deployment/llmops-deployment'
                             
