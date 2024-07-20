@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', (event) => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('success') === 'true') {
+        document.getElementById('success-message').style.display = 'block';
+    }
+
     // Initialize the multi-step form
     initMultiStepForm();
 
@@ -15,8 +20,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 });
 
                 if (response.ok) {
-                    // Redirect to the index page with a success parameter
-                    window.location.href = '/?success=true';
+                    // Redirect to the login page with a success parameter
+                    window.location.href = '/login?success=true';
                 } else {
                     const result = await response.json();
                     alert(result.error);

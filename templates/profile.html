@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/static/profile.css">
 {% endblock %}
     
-    {% block content %}
+{% block content %}
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="/static/profile.css" />
@@ -21,22 +21,40 @@
             </div>
             <div class="overlap">
                 <div class="text-wrapper-2">Full Name</div>
-                <div class="overlap-2"><div class="text-wrapper-12">{{ user[0] }} {{ user[1] }}</div></div>
+                <div class="overlap-2">
+                    <div class="text-wrapper-12" id="full-name">{{ user[0] }} {{ user[1] }}</div>
+                    <input type="text" id="edit-full-name" class="edit-input" style="display: none;" value="{{ user[0] }} {{ user[1] }}">
+                </div>
                 
                 <div class="text-wrapper-3">Gender</div>
-                <div class="overlap-3"><div class="text-wrapper-12">{{ user[2] }}</div></div>
+                <div class="overlap-3">
+                    <div class="text-wrapper-12" id="gender">{{ user[2] }}</div>
+                    <input type="text" id="edit-gender" class="edit-input" style="display: none;" value="{{ user[2] }}">
+                </div>
                 
                 <div class="text-wrapper-4">Height</div>
-                <div class="overlap-4"><div class="text-wrapper-12">{{ user[3] }} cm</div></div>
+                <div class="overlap-4">
+                    <div class="text-wrapper-12" id="height">{{ user[3] }} cm</div>
+                    <input type="number" id="edit-height" class="edit-input" style="display: none;" value="{{ user[3] }}">
+                </div>
                 
                 <div class="text-wrapper-5">Age</div>
-                <div class="overlap-5"><div class="text-wrapper-12">{{ user[4] }} years</div></div>
+                <div class="overlap-5">
+                    <div class="text-wrapper-12" id="age">{{ user[4] }} years</div>
+                    <input type="number" id="edit-age" class="edit-input" style="display: none;" value="{{ user[4] }}">
+                </div>
                 
                 <div class="text-wrapper-6">Weight</div>
-                <div class="overlap-6"><div class="text-wrapper-12">{{ user[5] }} kg</div></div>
+                <div class="overlap-6">
+                    <div class="text-wrapper-12" id="weight">{{ user[5] }} kg</div>
+                    <input type="number" id="edit-weight" class="edit-input" style="display: none;" value="{{ user[5] }}">
+                </div>
                 
                 <div class="text-wrapper-7">Email</div>
-                <div class="overlap-7"><div class="text-wrapper-12">{{ user[6] }}</div></div>
+                <div class="overlap-7">
+                    <div class="text-wrapper-12" id="email">{{ user[6] }}</div>
+                    <input type="email" id="edit-email" class="edit-input" style="display: none;" value="{{ user[6] }}" disabled>
+                </div>
                 
                 <img class="rectangle" src="/images/Rectangle.png" />
                 
@@ -46,10 +64,16 @@
                 </div>
                 
                 <div class="overlap-group-wrapper">
-                    <div class="overlap-group"><div class="text-wrapper-11">Edit</div></div>
+                    <div class="overlap-group">
+                        <button id="save-button" style="display: none;">Save</button>
+                        <button id="edit-button">Edit</button>
+                    </div>
                 </div>
+            </div>
         </div>
     </div>
+    <script src="/static/common.js"></script>
+    <script src="/static/profile.js"></script>
 </body>
-</html>
 {% endblock %}
+</html>
