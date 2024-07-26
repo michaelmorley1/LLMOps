@@ -1,11 +1,14 @@
-from flask import Flask, request, jsonify, render_template, send_from_directory, redirect, url_for, session
+from flask import Flask, request, jsonify, render_template, send_from_directory, redirect, url_for, session, g
 import sqlite3
 import bcrypt
 import logging
+import os
+import base64
 from response_generator import ResponseGenerator
+import re
 
 app = Flask(__name__, static_folder='static')
-app.secret_key = 'your_secret_key'  # Replace with a secure key
+app.secret_key = 'your_secure_secret_key'  # Use a secure, random key
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
@@ -35,6 +38,19 @@ def init_db():
 
 init_db()
 
+# Generate a nonce for each request
+@app.before_request
+def set_nonce():
+    g.nonce = base64.b64encode(os.urandom(16)).decode()
+
+# Add CSP header to each response
+@app.after_request
+def set_csp(response):
+    response.headers['Content-Security-Policy'] = (
+        f"default-src 'self'; script-src 'self' 'nonce-{g.nonce}'; style-src 'self' 'nonce-{g.nonce}';"
+    )
+    return response
+
 @app.context_processor
 def inject_user():
     return dict(logged_in=('user_id' in session))
@@ -44,14 +60,32 @@ def index():
     user_logged_in = 'user_id' in session
     return render_template('index.html', user_logged_in=user_logged_in)
 
-
 @app.route('/about')
 def about():
     return render_template('about.html')
 
-@app.route('/sign-up')
+@app.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
-    return render_template('sign_up.html')
+    if request.method == 'GET':
+        return render_template('sign_up.html')
+    
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password').encode('utf-8')
+
+        # Handle login
+        conn = sqlite3.connect('users.db')
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM users WHERE email = ?', (email,))
+        user = cursor.fetchone()
+        conn.close()
+
+        if user and bcrypt.checkpw(password, user[-1]):
+            session['user_id'] = user[0]
+            session['user_name'] = f"{user[1]} {user[2]}"
+            return jsonify({'success': 'Login successful'}), 200
+        else:
+            return jsonify({'error': 'Invalid email or password'}), 401
 
 @app.route('/generate-plan', methods=['POST'])
 def generate_plan():
@@ -95,6 +129,7 @@ def multi_step_form():
         return render_template('sign-form.html')
     
     if request.method == 'POST':
+        # Extract and validate form data
         first_name = request.form.get('first_name')
         surname = request.form.get('surname')
         gender = request.form.get('gender')
@@ -104,13 +139,48 @@ def multi_step_form():
         email = request.form.get('email')
         password = request.form.get('password')
 
-        logging.debug(f"First Name: {first_name}, Surname: {surname}, Gender: {gender}, Height: {height}, Age: {age}, Weight: {weight}, Email: {email}, Password: {password}")
+        # Validation checks
+        def is_valid_input(data):
+            if not all(data.values()):
+                return 'Please fill in all fields.'
+            if not re.match(r"^[a-zA-Z]+$", first_name) or not re.match(r"^[a-zA-Z]+$", surname):
+                return 'Name fields should only contain letters.'
+            try:
+                int_height = int(height)
+                int_age = int(age)
+                int_weight = int(weight)
+            except ValueError:
+                return 'Height, age, and weight must be valid numbers.'
+            if int_height <= 0 or int_age <= 0 or int_weight <= 0:
+                return 'Height, age, and weight must be positive numbers.'
+            if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+                return 'Invalid email format.'
+            return None
+
+        def is_valid_password(password):
+            if len(password) < 8:
+                return 'Password must be at least 8 characters long.'
+            if not re.search(r'[A-Z]', password):
+                return 'Password must contain at least one uppercase letter.'
+            if not re.search(r'[a-z]', password):
+                return 'Password must contain at least one lowercase letter.'
+            if not re.search(r'[0-9]', password):
+                return 'Password must contain at least one number.'
+            return None
+
+        input_error_message = is_valid_input(request.form)
+        password_error_message = is_valid_password(password)
+
+        if input_error_message:
+            return jsonify({'error': input_error_message}), 400
+        if password_error_message:
+            return jsonify({'error': password_error_message}), 400
 
         try:
             # Hash the password
             hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
-            # Connect to the database
+            # Insert the new user into the database
             conn = sqlite3.connect('users.db')
             cursor = conn.cursor()
             cursor.execute('''
@@ -121,31 +191,14 @@ def multi_step_form():
             session['user_id'] = cursor.lastrowid
             session['user_name'] = f"{first_name} {surname}"
             conn.close()
-            return redirect(url_for('sign_up', success='true'))
+            # Redirect to index page after successful registration
+            return redirect(url_for('index'))
         except sqlite3.IntegrityError as e:
             logging.error(f"An error occurred while processing the form: {str(e)}")
             return jsonify({'error': 'Email already exists'}), 400
         except Exception as e:
             logging.error(f"An error occurred while processing the form: {str(e)}")
             return jsonify({'error': 'Failed to submit form'}), 500
-
-@app.route('/login', methods=['POST'])
-def login():
-    email = request.form.get('email')
-    password = request.form.get('password').encode('utf-8')
-
-    conn = sqlite3.connect('users.db')
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM users WHERE email = ?', (email,))
-    user = cursor.fetchone()
-    conn.close()
-
-    if user and bcrypt.checkpw(password, user[-1]):
-        session['user_id'] = user[0]
-        session['user_name'] = f"{user[1]} {user[2]}"
-        return redirect(url_for('index'))
-    else:
-        return jsonify({'error': 'Invalid email or password'}), 401
 
 @app.route('/profile')
 def profile():
@@ -192,3 +245,4 @@ def logout():
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
+    #app.run(debug=True, host='0.0.0.0', ssl_context=('ssl/cert.pem', 'ssl/key.pem'))

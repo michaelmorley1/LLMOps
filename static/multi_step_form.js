@@ -1,49 +1,67 @@
-document.addEventListener('DOMContentLoaded', (event) => {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('success') === 'true') {
-        document.getElementById('success-message').style.display = 'block';
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    // Check if the form element exists before adding the event listener
+    const signupForm = document.getElementById('signup-form');
+    if (signupForm) {
+        // Event listener for form submission
+        signupForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            clearErrors();
+            if (validateForm()) {
+                const formData = new FormData(event.target);
 
-    // Initialize the multi-step form
-    initMultiStepForm();
+                try {
+                    const response = await fetch('/multi-step-form', {
+                        method: 'POST',
+                        body: formData,
+                    });
 
-    // Event listener for form submission
-    document.getElementById('signup-form').addEventListener('submit', async function(event) {
-        event.preventDefault();
-        if (validateForm()) {
-            const formData = new FormData(event.target);
-
-            try {
-                const response = await fetch('/multi-step-form', {
-                    method: 'POST',
-                    body: formData,
-                });
-
-                if (response.ok) {
-                    // Redirect to the login page with a success parameter
-                    window.location.href = '/login?success=true';
-                } else {
-                    const result = await response.json();
-                    alert(result.error);
+                    if (response.ok) {
+                        // Redirect to the index page after successful signup
+                        window.location.href = '/';
+                    } else {
+                        const result = await response.json();
+                        displayError(result.error || 'Failed to sign up');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    displayError('Failed to sign up');
                 }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Failed to submit form');
             }
-        }
-    });
-
-    // Add event listeners for blue dots to navigate steps
-    document.querySelectorAll('.progress-step').forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            nextStep(index + 1);
         });
-    });
+
+        // Add event listeners for navigating steps
+        document.querySelectorAll('.next-button').forEach((button) => {
+            button.addEventListener('click', () => {
+                const nextStepIndex = parseInt(button.getAttribute('data-next'), 10);
+                nextStep(nextStepIndex);
+            });
+        });
+
+        // Add event listeners for progress steps to navigate steps
+        document.querySelectorAll('.progress-step').forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                nextStep(index + 1);
+            });
+        });
+    } else {
+        console.warn('Signup form not found.');
+    }
 });
 
-function initMultiStepForm() {
-    // Show the first step initially
-    nextStep(1);
+function displayError(message) {
+    const errorField = document.getElementById('password-error');
+    if (errorField) {
+        errorField.textContent = message;
+        errorField.style.display = 'block';
+    }
+}
+
+function clearErrors() {
+    const errorFields = document.querySelectorAll('.error-message');
+    errorFields.forEach((field) => {
+        field.textContent = '';
+        field.style.display = 'none';
+    });
 }
 
 function nextStep(step) {
@@ -52,11 +70,11 @@ function nextStep(step) {
 
     // Hide all steps
     document.querySelectorAll('.form-step').forEach(stepElement => {
-        stepElement.style.display = 'none';
+        stepElement.classList.add('hidden');
     });
 
     // Show the current step
-    document.getElementById('step-' + step).style.display = 'block';
+    document.getElementById('step-' + step).classList.remove('hidden');
 
     // Update progress bar
     document.querySelectorAll('.progress-step').forEach((indicator, index) => {
@@ -149,31 +167,4 @@ function validateForm() {
         }
     }
     return isValid;
-}
-
-function validatePasswords() {
-    const password = document.getElementById('password');
-    const confirmPassword = document.getElementById('confirm-password');
-
-    if (password && confirmPassword && password.value !== confirmPassword.value) {
-        confirmPassword.style.borderColor = 'red';
-        confirmPassword.placeholder = 'Passwords do not match';
-        confirmPassword.value = '';
-        return false;
-    }
-
-    // Proceed to submit the form
-    if (password && confirmPassword) {
-        document.getElementById('signup-form').submit();
-    }
-}
-
-function getCurrentStep() {
-    const steps = document.querySelectorAll('.form-step');
-    for (let i = 0; i < steps.length; i++) {
-        if (steps[i].style.display !== 'none') {
-            return i + 1;
-        }
-    }
-    return 1;
 }

@@ -1,8 +1,16 @@
+<!DOCTYPE html>
+<html>
 {% extends "nav_bar.html" %}
 
 {% block head %}
     <title>Your Plan Your Way</title>
     <link rel="stylesheet" href="/static/index.css">
+    <style nonce="{{ g.nonce }}">
+        .hidden { display: none; }
+        .success-message { color: green; display: none; }
+        .header-margin { margin-top: 50px; }
+        .form-step-hidden { display: none; }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -16,7 +24,7 @@
         <div class="shape shape5"></div>
         <!-- Add more shapes as needed -->
     </div>
-    <header style="margin-top: 50px;">
+    <header class="header-margin">
         <h1>Your Plan Your Way 💪</h1>
     </header>
     <main>
@@ -24,7 +32,7 @@
         <div class="overlay">
             <div class="overlay-content">
                 <p>You need to login or sign up to access the fitness coach.</p>
-                <button onclick="window.location.href='/sign-up'">Sign Up or Login</button>
+                <button id="signup-login-btn">Sign Up or Login</button>
             </div>
         </div>
         {% else %}
@@ -32,9 +40,9 @@
             <div class="DESKTOP-profile-info dark-mode">
                 <div class="contents">
                     <div class="progress-bar">
-                        <div class="progress-step" id="progress-1" onclick="goToStep(1)"></div>
-                        <div class="progress-step" id="progress-2" onclick="goToStep(2)"></div>
-                        <div class="progress-step" id="progress-3" onclick="goToStep(3)"></div>
+                        <div class="progress-step" id="progress-1"></div>
+                        <div class="progress-step" id="progress-2"></div>
+                        <div class="progress-step" id="progress-3"></div>
                     </div>
                     <div class="title">
                         <div class="large-title">Select Your Advice</div>
@@ -54,10 +62,10 @@
                                         <input type="checkbox" name="advice" value="workout"> Workout Advice
                                     </label>
                                 </div>
-                                <button type="button" class="secondary-button" onclick="nextStep(2)">Next</button>
+                                <button type="button" class="secondary-button next-btn" data-next="2">Next</button>
                             </div>
                             <!-- Step 2: Nutrition Preferences -->
-                            <div class="form-step" id="step-2" style="display: none;">
+                            <div class="form-step form-step-hidden" id="step-2">
                                 <div class="subhead">
                                     <div class="text-wrapper">Nutrition Preferences</div>
                                 </div>
@@ -75,10 +83,10 @@
                                         <input type="checkbox" name="food" value="vegetarian"> Vegetarian
                                     </label>
                                 </div>
-                                <button type="button" class="secondary-button" onclick="nextStep(3)">Next</button>
+                                <button type="button" class="secondary-button next-btn" data-next="3">Next</button>
                             </div>
                             <!-- Step 3: Workout Preferences -->
-                            <div class="form-step" id="step-3" style="display: none;">
+                            <div class="form-step form-step-hidden" id="step-3">
                                 <div class="subhead">
                                     <div class="text-wrapper">Workout Preferences</div>
                                 </div>
@@ -109,10 +117,10 @@
         </div>
         {% endif %}
     </main>
-    <div id="login-success-message" class="success-message" style="display: none;">
+    <div id="login-success-message" class="success-message hidden">
         Successfully logged in!
     </div>
-    <script src="/static/common.js"></script>
-    <script src="/static/fitness_form.js"></script>
-    <script src="/static/multi_step_form.js"></script>
+    <script nonce="{{ g.nonce }}" src="/static/common.js"></script>
+    <script nonce="{{ g.nonce }}" src="/static/fitness_form.js"></script>
 {% endblock %}
+</html>
