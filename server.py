@@ -10,6 +10,9 @@ import re
 app = Flask(__name__, static_folder='static')
 app.secret_key = 'your_secure_secret_key'  # Use a secure, random key
 
+# Database filename constant
+DB_FILENAME = 'users.db'
+
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
 
@@ -18,7 +21,7 @@ response_generator = ResponseGenerator()
 
 # Initialize the database
 def init_db():
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_FILENAME)
     cursor = conn.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS users (
