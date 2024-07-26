@@ -319,3 +319,16 @@ button:hover {
 .overlay .overlay-content button:hover {
     background-color: #005bb5;
 }
+
+/* Add CSS classes for form step visibility and error handling */
+.hidden {
+    display: none;
+}
+
+.form-step-hidden {
+    display: none;
+}
+
+.invalid {
+    border-color: red;
+}

@@ -5,6 +5,16 @@
 {% block head %}
     <title>Login</title>
     <link rel="stylesheet" href="/static/sign_up.css">
+    <style nonce="{{ g.nonce }}">
+        .error-message {
+            color: red;
+            display: none;
+        }
+        .success-message {
+            color: green;
+            display: none;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -52,14 +62,14 @@
             </div>
         </div>
     </div>
-    <div id="login-fail-message" class="error-message" style="display: none;">
+    <div id="login-fail-message" class="error-message hidden">
         Failed to log in! Please check your email and password.
     </div>
-    <div id="success-message" class="success-message" style="display: none;">
+    <div id="success-message" class="success-message hidden">
         Successfully signed up! Login now.
     </div>
-    <script src="/static/common.js"></script>
-    <script src="/static/login.js"></script>
+    <script nonce="{{ g.nonce }}" src="/static/common.js"></script>
+    <script nonce="{{ g.nonce }}" src="/static/login.js"></script>
 </body>
 </html>
 {% endblock %}

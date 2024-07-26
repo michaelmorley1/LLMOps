@@ -1,6 +1,13 @@
-
+<!DOCTYPE html>
+<html>
+<head>
     <link rel="stylesheet" href="/static/sign-form.css">
-
+    <style nonce="{{ g.nonce }}">
+        .hidden { display: none; }
+        .error-message { color: red; display: none; }
+    </style>
+</head>
+<body>
     <div class="DESKTOP-profile-info">
         <div class="contents">
             <div class="progress-bar">
@@ -31,10 +38,10 @@
                             <div class="input">
                                 <input class="field-text" placeholder="Surname" type="text" id="surname" name="surname" required />
                             </div>
-                            <button type="button" class="secondary-button" onclick="nextStep(2)">Next</button>
+                            <button type="button" class="secondary-button next-button" data-next="2">Next</button>
                         </div>
                         <!-- Step 2: Gender & Height -->
-                        <div class="form-step" id="step-2" style="display: none;">
+                        <div class="form-step hidden" id="step-2">
                             <div class="subhead">
                                 <div class="text-wrapper">Gender & Height</div>
                             </div>
@@ -49,10 +56,10 @@
                             <div class="input">
                                 <input class="field-text" placeholder="Height (cm)" type="number" id="height" name="height" required />
                             </div>
-                            <button type="button" class="secondary-button" onclick="nextStep(3)">Next</button>
+                            <button type="button" class="secondary-button next-button" data-next="3">Next</button>
                         </div>
                         <!-- Step 3: Age & Weight -->
-                        <div class="form-step" id="step-3" style="display: none;">
+                        <div class="form-step hidden" id="step-3">
                             <div class="subhead">
                                 <div class="text-wrapper">Age & Weight</div>
                             </div>
@@ -62,35 +69,39 @@
                             <div class="input">
                                 <input class="field-text" placeholder="Weight (kg)" type="number" id="weight" name="weight" required />
                             </div>
-                            <button type="button" class="secondary-button" onclick="nextStep(4)">Next</button>
+                            <button type="button" class="secondary-button next-button" data-next="4">Next</button>
                         </div>
                         <!-- Step 4: Email -->
-                        <div class="form-step" id="step-4" style="display: none;">
+                        <div class="form-step hidden" id="step-4">
                             <div class="subhead">
                                 <div class="text-wrapper">Email Address</div>
                             </div>
                             <div class="input">
                                 <input class="field-text" placeholder="Email Address" type="email" id="email" name="email" required />
                             </div>
-                            <button type="button" class="secondary-button" onclick="nextStep(5)">Next</button>
+                            <button type="button" class="secondary-button next-button" data-next="5">Next</button>
                         </div>
                         <!-- Step 5: Password & Confirm Password -->
-                        <div class="form-step" id="step-5" style="display: none;">
+                        <div class="form-step hidden" id="step-5">
                             <div class="subhead">
                                 <div class="text-wrapper">Password</div>
                             </div>
                             <div class="input">
                                 <input class="field-text" placeholder="Password" type="password" id="password" name="password" required />
+                                <div class="error-message" id="password-error"></div>
                             </div>
                             <div class="input">
                                 <input class="field-text" placeholder="Confirm Password" type="password" id="confirm-password" name="confirm_password" required />
+                                <div class="error-message" id="confirm-password-error"></div>
                             </div>
-                            <button type="submit" class="secondary-button" onclick="validatePasswords()">Submit</button>
+                            <button type="submit" class="secondary-button">Submit</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <script src="/static/common.js"></script>
-    <script src="/static/multi_step_form.js"></script>
+    <script nonce="{{ g.nonce }}" src="/static/common.js"></script>
+    <script nonce="{{ g.nonce }}" src="/static/multi_step_form.js"></script>
+</body>
+</html>
