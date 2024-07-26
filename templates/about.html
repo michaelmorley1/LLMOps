@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    {% extends "nav_bar.html" %}
+
+    {% block head %}
+        <title>Your Plan Your Way</title>
+        <style nonce="{{ g.nonce }}">
+            .hidden { display: none; }
+            .success-message { color: green; display: none; }
+            .header-margin { margin-top: 50px; }
+            .form-step-hidden { display: none; }
+        </style>
+    {% endblock %}
+    
+    {% block content %}
+    <link rel="stylesheet" href="/static/about.css">
+    <body>
+        <div class="section">
+            <div class="text-container">
+                <div class="label">
+                    <h1 class="about-us">ABOUT US</h1>
+                </div>
+                <div class="div">
+                    <h2 class="p">Our Vision: Making Fitness Personal</h2>
+                    <div class="container">
+                        <p class="text-wrapper-2">
+                            Fitness Coach is an LLM-powered solution that uses your personal information and preferences to create a tailored and detailed weekly plan. With a security-first approach, we employ the latest DevSecOps techniques to secure your data and interactions.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="desc-and-founder">
+                <div class="left">
+                    <div class="flexcontainer">
+                        <p class="text">
+                            Our Capstone Project represents a significant technical achievement, bringing together the expertise of Ivo Garais in backend development, Gareth Enright in frontend design, and Michael Morley in DevSecOps. This collaboration aimed to create a robust, secure, and user-friendly web application that meets modern security and design standards.
+                        </p>
+                        <p class="text">
+                            Ivo focused on developing a reliable backend infrastructure, ensuring efficient data handling and secure interactions between the server and the client. This included implementing secure authentication mechanisms, data validation, and error handling to protect against common vulnerabilities.
+                        </p>
+                        <p class="text">
+                            Gareth applied his skills in frontend development to design an intuitive and accessible user interface. His work emphasized creating a responsive design that offers a seamless experience across different devices, prioritizing user experience without compromising on performance.
+                        </p>
+                        <p class="text">
+                            Michael's role in DevSecOps was crucial in integrating security practices throughout the development lifecycle. He implemented stringent security measures, including encryption for data transmission, secure coding practices, and regular security audits, ensuring the application met high standards of data protection and compliance.
+                        </p>
+                        <p class="text">
+                            Together, we built a platform that not only functions efficiently but also safeguards user data and provides a smooth and engaging experience. This project allowed us to apply and refine our technical skills in a collaborative environment, addressing real-world challenges and delivering a product that we are proud of.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    {% endblock %}
+</html>

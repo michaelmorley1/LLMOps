@@ -1,0 +1,74 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Abel', Helvetica, Arial, sans-serif;
+    background-color: #ffffff; /* Light background */
+    color: #181e27; /* Main text color */
+}
+
+.section {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    background-color: #ffffff; /* Base white */
+}
+
+.text-container {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.about-us {
+    font-weight: 400;
+    font-size: 14px;
+    color: #2b6462; /* Primary accent color */
+    letter-spacing: 1.12px;
+    text-transform: uppercase;
+    line-height: 1.5;
+}
+
+.p {
+    font-weight: 400;
+    font-size: 72px;
+    color: #181e27; /* Main text color */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.container {
+    padding: 0 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.text-wrapper-2 {
+    font-weight: 400;
+    font-size: 22px;
+    color: #3c465f; /* Secondary text color */
+    line-height: 1.75;
+    text-align: center;
+}
+
+.desc-and-founder {
+    padding: 20px;
+}
+
+.left {
+    max-width: 1126px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.flexcontainer {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.text {
+    font-weight: 400;
+    font-size: 18px;
+    color: #181e27; /* Main text color */
+    line-height: 1.75;
+}
