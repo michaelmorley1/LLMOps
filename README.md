@@ -127,16 +127,5 @@ After setting up the application:
 2. Sign up for a new account or log in
 3. Use the chat interface to generate personalized fitness and nutrition plans
 
-## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-
-## Acknowledgments
-
-- OpenAI for providing the GPT-3.5 API
-- The open-source community for the various tools and libraries used in this project
 
