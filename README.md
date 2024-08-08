@@ -1,4 +1,5 @@
-# Intelligent Conversations: A DevSecOps Approach to Secure Chat Application Development
+# Secure AI Development: Applying DevSecOps Methodologies to an AI-Powered Application
+
 
 ## Project Overview
 
